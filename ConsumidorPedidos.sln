@@ -9,7 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
-		wait-for-it.sh = wait-for-it.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumidorPedidos.Data.Messaging", "src\ConsumidorPedidos.Data.Messaging\ConsumidorPedidos.Data.Messaging.csproj", "{48F76CDA-9F00-4968-85B0-3E41013A62FA}"
@@ -19,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumidorPedidos.Core", "src\ConsumidorPedidos.Core\ConsumidorPedidos.Core.csproj", "{ADC46023-4786-4EB7-943F-3178F6EF9F95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumidorPedidos.Tests", "src\ConsumidorPedidos.Tests\ConsumidorPedidos.Tests.csproj", "{5185DE39-23C3-432A-9ABA-0E599B6D2D47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumidorPedidos.Model", "src\ConsumidorPedidos.Model\ConsumidorPedidos.Model.csproj", "{D31939B7-89CB-4F45-A879-2A30DF2B8DB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +47,10 @@ Global
 		{5185DE39-23C3-432A-9ABA-0E599B6D2D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5185DE39-23C3-432A-9ABA-0E599B6D2D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5185DE39-23C3-432A-9ABA-0E599B6D2D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D31939B7-89CB-4F45-A879-2A30DF2B8DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D31939B7-89CB-4F45-A879-2A30DF2B8DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D31939B7-89CB-4F45-A879-2A30DF2B8DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D31939B7-89CB-4F45-A879-2A30DF2B8DB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
