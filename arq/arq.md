@@ -1,6 +1,4 @@
-Para criar um diagrama de arquitetura para a aplicação `ConsumidorPedidos`, vamos desenhar a estrutura da aplicação dividida em camadas e interações com os componentes externos. Vou descrever como você pode criar o diagrama e quais elementos incluir:
-
-### Diagrama de Arquitetura da Aplicação `ConsumidorPedidos`
+### Arquitetura
 
 #### 1. **Camadas da Aplicação**
 
@@ -74,3 +72,5 @@ graph TD
 - **ConsumidorPedidos.Data.Messaging** e **ConsumidorPedidos.Data.MySql** interagem com os serviços externos **RabbitMQ** e **MySQL**, respectivamente.
 - **ConsumidorPedidos.Model (Modelos de Dados)** é utilizado por todas as outras camadas para definição dos modelos de dados.
 
+
+![view](./isoflow.png)
