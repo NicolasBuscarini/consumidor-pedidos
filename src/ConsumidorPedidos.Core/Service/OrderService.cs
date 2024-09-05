@@ -86,7 +86,7 @@ namespace ConsumidorPedidos.Core.Service
         public async Task<(List<Order> Orders, MetaData Meta)> GetAllOrder(int pageNumber = 1, int pageSize = 10)
         {
             var totalItems = await repository.ListAll().CountAsync();
-            var orders = await repository.ListAll(pageNumber, pageSize).ToListAsync();
+            var orders = await repository.ListAll(pageNumber, pageSize).Include(c => c.Items).ToListAsync();
 
             var meta = new MetaData(
                 totalItems: totalItems,
@@ -118,6 +118,7 @@ namespace ConsumidorPedidos.Core.Service
             var orders = await query
                                  .Skip((pageNumber - 1) * pageSize)  // Skip items based on the current page.
                                  .Take(pageSize)  // Take the number of items specified by pageSize.
+                                 .Include(c => c.Items)
                                  .ToListAsync();
 
             // Create metadata for pagination.
@@ -140,7 +141,7 @@ namespace ConsumidorPedidos.Core.Service
         /// <returns>The <see cref="Order"/> with the specified ID, or null if not found.</returns>
         public async Task<Order> GetOrderById(int id)
         {
-            return await repository.GetByIdAsync(id);
+            return await repository.GetByIdIncludingAsync(id, c => c.Include(c => c.Items));
         }
 
         /// <summary>
