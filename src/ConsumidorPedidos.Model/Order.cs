@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace ConsumidorPedidos.Model
@@ -29,5 +30,13 @@ namespace ConsumidorPedidos.Model
         /// </summary>
         [JsonPropertyName("itens")]
         public required List<Item> Items { get; set; } = [];
+
+        /// <summary>
+        /// Gets the total amount of the order, which is calculated based on the sum of the item prices.
+        /// This property is not mapped to the database and is serialized as "total" in JSON.
+        /// </summary>
+        [NotMapped]
+        [JsonPropertyName("total")]
+        public decimal Total => Items.Sum(item => (decimal)item.Price * item.Quantity);
     }
 }
