@@ -1,4 +1,6 @@
-﻿
+﻿using ConsumidorPedidos.Core.Service.Interface;
+using ConsumidorPedidos.Core.Service;
+
 namespace ConsumidorPedidos.Config.Ioc
 {
     /// <summary>
@@ -13,6 +15,8 @@ namespace ConsumidorPedidos.Config.Ioc
         public static void ConfigureServiceIoc(this IServiceCollection services)
         {
             ArgumentNullException.ThrowIfNull(services);
+
+            services.AddScoped<IOrderService, OrderService>();
         }
     }
 }

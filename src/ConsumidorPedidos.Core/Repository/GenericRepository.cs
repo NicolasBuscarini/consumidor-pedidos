@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using ConsumidorPedidos.Data.MySql.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
-using ConsumidorPedidos.Data.MySql.Repository.Interface;
 
 namespace ConsumidorPedidos.Data.MySql.Repository
 {

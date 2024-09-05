@@ -18,8 +18,8 @@ builder.Services.UpdateMigrationDatabase();
 
 // Add IOC
 builder.Services.ConfigureRepositoryIoc();
-builder.Services.ConfigureMessagingIoc();
 builder.Services.ConfigureServiceIoc();
+builder.Services.ConfigureMessagingIoc();
 
 // Add HealthCheck
 builder.Services.AddHealthChecks();
@@ -36,6 +36,13 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// Create a scope to resolve the scoped service
+using (var scope = app.Services.CreateScope())
+{
+    var consumerStarter = scope.ServiceProvider.GetRequiredService<ConsumerStarter>();
+    consumerStarter.StartConsumer("queue_order");
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -45,7 +52,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseRouting(); 
+app.UseRouting();
 
 app.UseAuthorization();
 
