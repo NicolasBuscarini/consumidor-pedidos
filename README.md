@@ -58,11 +58,6 @@ A arquitetura da aplicação segue o padrão de microserviços e utiliza RabbitM
 - **MySQL**:
   - Porta 3307 (Conexão com o banco de dados)
 
-## Endpoints da API
-
-- **GET /api/pedidos/{id}**: Retorna o valor total de um pedido.
-- **GET /api/clientes/{id}/pedidos**: Retorna a quantidade de pedidos e a lista de pedidos realizados por um cliente.
-
 ## Testes
 
 Para rodar os testes funcionais da aplicação:
