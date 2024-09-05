@@ -22,8 +22,8 @@
 
 A arquitetura da aplicação segue o padrão de microserviços e utiliza RabbitMQ para comunicação assíncrona entre os componentes. O diagrama a seguir ilustra a estrutura da aplicação:
 
-![Diagrama de Arquitetura](./arq/isoflow.png)
-- [Mais informações](./arq/arq.md)
+![Diagrama de Arquitetura](./docs/arq/isoflow.png)
+- [Mais informações](./docs/arq/arq.md)
 
 ## Requisitos
 
