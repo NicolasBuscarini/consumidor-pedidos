@@ -1,9 +1,10 @@
-﻿using ConsumidorPedidos.Data.MySql.Repository.Interface;
+﻿using ConsumidorPedidos.Data.MySql;
+using ConsumidorPedidos.Data.MySql.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 
-namespace ConsumidorPedidos.Data.MySql.Repository
+namespace ConsumidorPedidos.Core.Repository
 {
     /// <summary>
     /// GenericRepository
@@ -117,7 +118,7 @@ namespace ConsumidorPedidos.Data.MySql.Repository
         /// <param name="id">The ID of the entity to retrieve.</param>
         /// <param name="include">The include expression for related entities.</param>
         /// <returns>The retrieved entity, including its related entities.</returns>
-        public virtual async Task<T> GetByIdAsync(TKey id, Func<IQueryable<T>, IQueryable<T>>? include)
+        public virtual async Task<T> GetByIdIncludingAsync(TKey id, Func<IQueryable<T>, IQueryable<T>>? include)
         {
             _logger.LogInformation("Retrieving an entity asynchronously by ID: {Id}.", id);
 
@@ -142,6 +143,18 @@ namespace ConsumidorPedidos.Data.MySql.Repository
         {
             _logger.LogInformation("Listing all entities.");
             return _context.Set<T>().AsQueryable();
+        }
+
+        /// <summary>
+        /// Returns a queryable collection of all entities with pagination.
+        /// </summary>
+        public virtual IQueryable<T> ListAll(int pageNumber, int pageSize)
+        {
+            _logger.LogInformation("Listing all entities with pagination.");
+            return _context.Set<T>()
+                           .Skip((pageNumber - 1) * pageSize)
+                           .Take(pageSize)
+                           .AsQueryable();
         }
     }
 }

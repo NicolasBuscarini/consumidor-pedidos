@@ -1,6 +1,7 @@
 ﻿using ConsumidorPedidos.Core.Repository.Interface;
 using ConsumidorPedidos.Core.Service.Interface;
 using ConsumidorPedidos.Model;
+using ConsumidorPedidos.Model.Response;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -82,10 +83,55 @@ namespace ConsumidorPedidos.Core.Service
         /// Gets all orders asynchronously.
         /// </summary>
         /// <returns>A list of <see cref="Order"/>.</returns>
-        public async Task<List<Order>> GetAllOrder()
+        public async Task<(List<Order> Orders, MetaData Meta)> GetAllOrder(int pageNumber = 1, int pageSize = 10)
         {
-            return await repository.ListAll().ToListAsync();
+            var totalItems = await repository.ListAll().CountAsync();
+            var orders = await repository.ListAll(pageNumber, pageSize).ToListAsync();
+
+            var meta = new MetaData(
+                totalItems: totalItems,
+                itemsPerPage: pageSize,
+                currentPage: pageNumber,
+                totalPages: totalItems / pageSize
+            );
+
+            return (Orders: orders, Meta: meta);
         }
+
+        /// <summary>
+        /// Retrieves a paginated list of orders filtered by the client code.
+        /// </summary>
+        /// <param name="clientCode">The client code to filter orders by.</param>
+        /// <param name="pageNumber">The page number for pagination (1-based index).</param>
+        /// <param name="pageSize">The number of items per page.</param>
+        /// <returns>A tuple containing a list of filtered orders and pagination metadata.</returns>
+        public async Task<(List<Order> Orders, MetaData Meta)> GetOrdersByClientCode(int clientCode, int pageNumber, int pageSize)
+        {
+            // Create a query to filter orders by client code.
+            var query = repository.ListAll()
+                                  .Where(o => o.ClientCode == clientCode);
+
+            // Get the total count of items that match the filter.
+            var totalItems = await query.CountAsync();
+
+            // Retrieve the paginated list of orders.
+            var orders = await query
+                                 .Skip((pageNumber - 1) * pageSize)  // Skip items based on the current page.
+                                 .Take(pageSize)  // Take the number of items specified by pageSize.
+                                 .ToListAsync();
+
+            // Create metadata for pagination.
+            var meta = new MetaData(
+                totalItems: totalItems,
+                itemsPerPage: pageSize,
+                currentPage: pageNumber,
+                totalPages: totalItems / pageSize
+            );
+
+            // Return the orders and metadata.
+            return (Orders: orders, Meta: meta);
+        }
+
 
         /// <summary>
         /// Gets a specific order by ID asynchronously.

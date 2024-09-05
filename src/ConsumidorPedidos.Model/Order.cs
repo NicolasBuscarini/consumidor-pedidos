@@ -28,6 +28,6 @@ namespace ConsumidorPedidos.Model
         /// This property is serialized as "itens" in JSON.
         /// </summary>
         [JsonPropertyName("itens")]
-        public required List<Item> Items { get; set; } = new List<Item>();
+        public required List<Item> Items { get; set; } = [];
     }
 }

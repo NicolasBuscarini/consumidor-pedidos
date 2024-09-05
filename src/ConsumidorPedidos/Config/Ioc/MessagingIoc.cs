@@ -1,8 +1,5 @@
 ﻿using ConsumidorPedidos.Data.Messaging;
 using ConsumidorPedidos.Core.Consumer;
-using ConsumidorPedidos.Core.Service.Interface;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace ConsumidorPedidos.Config.Ioc
 {
