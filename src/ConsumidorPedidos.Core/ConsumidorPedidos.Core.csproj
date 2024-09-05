@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConsumidorPedidos.Data.Messaging\ConsumidorPedidos.Data.Messaging.csproj" />
+    <ProjectReference Include="..\ConsumidorPedidos.Data.MySql\ConsumidorPedidos.Data.MySql.csproj" />
+  </ItemGroup>
+
 </Project>

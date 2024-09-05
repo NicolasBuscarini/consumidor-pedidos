@@ -15,56 +15,56 @@ namespace ConsumidorPedidos.Data.MySql.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Pedidos",
+                name: "Order",
                 columns: table => new
                 {
-                    CodigoPedido = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CodigoCliente = table.Column<int>(type: "int", nullable: false)
+                    ClientCode = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedidos", x => x.CodigoPedido);
+                    table.PrimaryKey("PK_Order", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Itens",
+                name: "Item",
                 columns: table => new
                 {
-                    CodigoItem = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Produto = table.Column<string>(type: "longtext", nullable: false)
+                    Product = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Quantidade = table.Column<int>(type: "int", nullable: false),
-                    Preco = table.Column<float>(type: "float", nullable: false),
-                    PedidoCodigoPedido = table.Column<int>(type: "int", nullable: true)
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<float>(type: "float", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Itens", x => x.CodigoItem);
+                    table.PrimaryKey("PK_Item", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Itens_Pedidos_PedidoCodigoPedido",
-                        column: x => x.PedidoCodigoPedido,
-                        principalTable: "Pedidos",
-                        principalColumn: "CodigoPedido");
+                        name: "FK_Item_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itens_PedidoCodigoPedido",
-                table: "Itens",
-                column: "PedidoCodigoPedido");
+                name: "IX_Item_OrderId",
+                table: "Item",
+                column: "OrderId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Itens");
+                name: "Item");
 
             migrationBuilder.DropTable(
-                name: "Pedidos");
+                name: "Order");
         }
     }
 }

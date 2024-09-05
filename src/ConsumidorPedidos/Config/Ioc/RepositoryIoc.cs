@@ -1,4 +1,6 @@
-﻿
+﻿using ConsumidorPedidos.Core.Repository;
+using ConsumidorPedidos.Core.Repository.Interface;
+
 namespace ConsumidorPedidos.Config.Ioc
 {
     /// <summary>
@@ -13,6 +15,8 @@ namespace ConsumidorPedidos.Config.Ioc
         public static void ConfigureRepositoryIoc(this IServiceCollection services)
         {
             ArgumentNullException.ThrowIfNull(services);
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
     }
 }

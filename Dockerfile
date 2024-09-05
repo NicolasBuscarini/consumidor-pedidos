@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copiar os arquivos csproj e restaurar dependências
 COPY /src/ConsumidorPedidos/ConsumidorPedidos.csproj ./src/ConsumidorPedidos/
-COPY /src/ConsumidorPedidos.Core/ConsumidorPedidos.Model.csproj ./src/ConsumidorPedidos.Model/
+COPY /src/ConsumidorPedidos.Model/ConsumidorPedidos.Model.csproj ./src/ConsumidorPedidos.Model/
 COPY /src/ConsumidorPedidos.Core/ConsumidorPedidos.Core.csproj ./src/ConsumidorPedidos.Core/
 COPY /src/ConsumidorPedidos.Data.MySql/ConsumidorPedidos.Data.MySql.csproj ./src/ConsumidorPedidos.Data.MySql/
 COPY /src/ConsumidorPedidos.Data.Messaging/ConsumidorPedidos.Data.Messaging.csproj ./src/ConsumidorPedidos.Data.Messaging/
