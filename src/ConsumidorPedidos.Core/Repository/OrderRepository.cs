@@ -1,5 +1,4 @@
 ﻿using ConsumidorPedidos.Data.Messaging;
-using ConsumidorPedidos.Data.MySql.Repository;
 using ConsumidorPedidos.Data.MySql;
 using Microsoft.Extensions.Logging;
 using ConsumidorPedidos.Model;

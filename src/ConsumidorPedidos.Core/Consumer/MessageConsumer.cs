@@ -9,29 +9,18 @@ using System.Text;
 
 namespace ConsumidorPedidos.Core.Consumer
 {
-    public class MessageConsumer
+    public class MessageConsumer(IModel channel, IServiceScopeFactory scopeFactory, ILogger<MessageConsumer> logger)
     {
-        private readonly IModel _channel;
-        private readonly IServiceScopeFactory _scopeFactory;
-        private readonly ILogger<MessageConsumer> _logger;
-
-        public MessageConsumer(IModel channel, IServiceScopeFactory scopeFactory, ILogger<MessageConsumer> logger)
-        {
-            _channel = channel;
-            _scopeFactory = scopeFactory;
-            _logger = logger;
-        }
-
         public void StartConsuming(string queueName)
         {
-            var consumer = new EventingBasicConsumer(_channel);
+            var consumer = new EventingBasicConsumer(channel);
 
             consumer.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
-                _logger.LogInformation($" [x] Received '{message}' from queue '{queueName}'");
+                logger.LogInformation($" [x] Received '{message}' from queue '{queueName}'");
 
                 try
                 {
@@ -39,48 +28,46 @@ namespace ConsumidorPedidos.Core.Consumer
                 }
                 catch (JsonException jsonEx)
                 {
-                    _logger.LogError($"Error processing message: {jsonEx.Message}");
+                    logger.LogError($"Error processing message: {jsonEx.Message}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"Unexpected error: {ex.Message}");
+                    logger.LogError($"Unexpected error: {ex.Message}");
                 }
             };
 
-            _channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
+            channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
 
-            _logger.LogInformation($" [*] Waiting for messages in '{queueName}'. To exit press CTRL+C");
+            logger.LogInformation($" [*] Waiting for messages in '{queueName}'. To exit press CTRL+C");
         }
 
         private async Task ProcessMessageAsync(string message)
         {
-            using (var scope = _scopeFactory.CreateScope())
+            using var scope = scopeFactory.CreateScope();
+            var orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
+
+            try
             {
-                var orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
+                var order = JsonConvert.DeserializeObject<Order>(message);
 
-                try
+                if (order == null || order.Items == null || order.Items.Count == 0)
                 {
-                    var order = JsonConvert.DeserializeObject<Order>(message);
-
-                    if (order == null || order.Items == null || order.Items.Count == 0)
-                    {
-                        throw new InvalidOperationException("Order data is invalid or missing required fields.");
-                    }
-
-                    _logger.LogInformation($" [x] Processing message: {message}");
-
-                    await orderService.CreateOrder(order);
+                    throw new InvalidOperationException("Order data is invalid or missing required fields.");
                 }
-                catch (JsonException jsonEx)
-                {
-                    _logger.LogError($"JSON error: {jsonEx.Message}");
-                    throw;
-                }
-                catch (InvalidOperationException invalidOpEx)
-                {
-                    _logger.LogError($"Validation error: {invalidOpEx.Message}");
-                    throw;
-                }
+
+                logger.LogInformation($" [x] Processing message: {message}");
+
+                await orderService.CreateOrder(order);
+            }
+            catch (JsonException jsonEx)
+            {
+                logger.LogError($"JSON error: {jsonEx.Message}");
+                throw;
+            }
+            catch (InvalidOperationException invalidOpEx)
+            {
+                logger.LogError($"Validation error: {invalidOpEx.Message}");
+                throw;
             }
         }
     }
