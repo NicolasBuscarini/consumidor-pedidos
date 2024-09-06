@@ -73,4 +73,3 @@ dotnet test
 - [📄 API](./docs/API.md)
 - [🐳 Erros Comuns no Docker Compose](./docs/erros-comuns/docker-compose.md)
 - [📊 Arquitetura](./docs/arq/arq.md)
-- [📄 Relatorio](./docs/RELATORIO - NICOLAS PAIUCA BUSCARINI.pdf)
