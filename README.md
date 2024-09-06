@@ -1,15 +1,15 @@
-# ConsumidorPedidos
+# **ConsumidorPedidos**
 
 **ConsumidorPedidos** é uma aplicação .NET que processa pedidos, consumindo mensagens de uma fila RabbitMQ, armazenando os dados em um banco de dados MySQL e expondo uma API REST para consulta de informações sobre pedidos.
 
-## Tecnologias Utilizadas
+## ⚙️ **Tecnologias Utilizadas**
 
 - **.NET 8**: Plataforma de desenvolvimento utilizada para criar a API e o microserviço.
 - **MySQL**: Banco de dados relacional utilizado para armazenar os pedidos processados.
 - **RabbitMQ**: Message broker utilizado para gerenciar a fila de pedidos.
 - **Docker**: Ferramenta de containerização utilizada para orquestrar os serviços necessários (RabbitMQ, MySQL, API).
 
-## Funcionalidades
+## ✨ **Funcionalidades**
 
 - **Consumo de Pedidos**: O microserviço consome mensagens de uma fila RabbitMQ contendo informações de pedidos.
 - **Armazenamento em Banco de Dados**: Os dados dos pedidos são armazenados em um banco de dados MySQL.
@@ -18,19 +18,19 @@
   - Quantidade de pedidos por cliente
   - Lista de pedidos realizados por cliente
 
-## Arquitetura
+## 🏛️ **Arquitetura**
 
 A arquitetura da aplicação segue o padrão de microserviços e utiliza RabbitMQ para comunicação assíncrona entre os componentes. O diagrama a seguir ilustra a estrutura da aplicação:
 
 ![Diagrama de Arquitetura](./docs/arq/isoflow.png)
-- [Mais informações](./docs/arq/arq.md)
+- [📂 Mais informações](./docs/arq/arq.md)
 
-## Requisitos
+## 📋 **Requisitos**
 
 - **.NET 8 SDK**: Para compilar, testar e rodar o projeto.
 - **Docker**: Para rodar os containers de RabbitMQ, MySQL e a aplicação .NET.
 
-## Como Executar
+## 🚀 **Como Executar**
 
 1. **Clone o Repositório**:
    ```bash
@@ -50,7 +50,7 @@ A arquitetura da aplicação segue o padrão de microserviços e utiliza RabbitM
 4. **Acessar a API**:
    - Após os serviços estarem em execução, a API REST estará disponível em `http://localhost:5005`.
 
-## Portas dos Serviços
+## 🌐 **Portas dos Serviços**
 
 - **RabbitMQ**: 
   - Porta 5672 (AMQP)
@@ -58,7 +58,7 @@ A arquitetura da aplicação segue o padrão de microserviços e utiliza RabbitM
 - **MySQL**:
   - Porta 3307 (Conexão com o banco de dados)
 
-## Testes
+## 🧪 **Testes**
 
 Para rodar os testes funcionais da aplicação:
 
@@ -66,3 +66,11 @@ Para rodar os testes funcionais da aplicação:
 dotnet test
 ```
 
+---
+
+## 📚 **Documentação**
+
+- [📄 API](./docs/API.md)
+- [🐳 Erros Comuns no Docker Compose](./docs/erros-comuns/docker-compose.md)
+- [📊 Arquitetura](./docs/arq/arq.md)
+- [📄 Relatorio](./docs/RELATORIO - NICOLAS PAIUCA BUSCARINI.pdf)
